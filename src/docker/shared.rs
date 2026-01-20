@@ -27,7 +27,7 @@ pub const CROSS_IMAGE: &str = {
     if let Some(opt) = option_env!("CROSS_IMAGE") {
         opt
     } else {
-        "ghcr.io/cross-rs"
+        "ghcr.io/oinv"
     }
 };
 
