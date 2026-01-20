@@ -57,10 +57,10 @@ max_kernel_version() {
 main() {
     # arch in the rust target
     local arch="${1}" \
-        kversion=5.10.0-34
+        kversion=6.1.0-42
 
-    local debsource="deb http://http.debian.net/debian/ bullseye main"
-    debsource="${debsource}\ndeb http://security.debian.org/ bullseye-security main"
+    local debsource="deb http://http.debian.net/debian/ bookworm main"
+    debsource="${debsource}\ndeb http://security.debian.org/debian-security bookworm-security main"
 
     local dropbear="dropbear-bin"
 
@@ -87,7 +87,7 @@ main() {
         deps=(libcrypt1:"${arch}")
         ;;
     mips)
-        # mips was discontinued in bullseye, so we have to use buster.
+        # mips was discontinued after buster, so we have to use buster.
         libgcc="libgcc1"
         debsource="deb http://http.debian.net/debian/ buster main"
         debsource="${debsource}\ndeb http://security.debian.org/ buster/updates main"
