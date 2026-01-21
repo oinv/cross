@@ -28,7 +28,7 @@ main() {
         -e LLVM_PROFILE_FILE -e CARGO_INCREMENTAL \
         -e "CROSS_TARGET_${TARGET_UPPER//-/_}_IMAGE" \
         -v /var/run/docker.sock:/var/run/docker.sock \
-        -v "${HOME}/.docker":"/root/.docker":ro \
+        -v "${HOME}/.docker:/root/.docker:ro" \
         docker:20.10-dind sh -c '
 #!/usr/bin/env sh
 set -x
