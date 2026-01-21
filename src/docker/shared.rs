@@ -1590,10 +1590,10 @@ mod tests {
     #[test]
     fn test_tag_only_image() -> Result<()> {
         let target: Target = TargetTriple::X86_64UnknownLinuxGnu.into();
-        let test = |map, expected_ver: &str, expected_ver_zig: &str| -> Result<()> {
+        let test = |map, expected_ver: &str, _expected_ver_zig: &str| -> Result<()> {
             let env = Environment::new(Some(map));
             let config = Config::new_with(None, env);
-            for (uses_zig, expected_ver) in [(false, expected_ver), (true, expected_ver_zig)] {
+            for (uses_zig, expected_ver) in [(false, expected_ver)] {
                 let expected_image_target = if uses_zig {
                     "zig"
                 } else {

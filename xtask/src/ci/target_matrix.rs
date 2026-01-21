@@ -438,32 +438,37 @@ mod tests {
 
     #[test]
     fn exact() {
-        let matrix = run(["--target", "arm-unknown-linux-gnueabi"]);
+        let matrix = run(["--target", "aarch64-unknown-linux-gnu"]);
         assert_eq!(matrix.len(), 1);
-        assert_eq!(matrix[0].target, "arm-unknown-linux-gnueabi");
+        assert_eq!(matrix[0].target, "aarch64-unknown-linux-gnu");
     }
 
     #[test]
     fn glob() {
-        let matrix = run(["--target", "arm-unknown-linux-gnueabi*"]);
+        let matrix = run(["--target", "*-unknown-linux-gnu"]);
         assert_eq!(matrix.len(), 2);
-        assert_eq!(matrix[0].target, "arm-unknown-linux-gnueabi");
-        assert_eq!(matrix[1].target, "arm-unknown-linux-gnueabihf");
+        assert!(matrix
+            .iter()
+            .any(|t| t.target == "x86_64-unknown-linux-gnu"));
+        assert!(matrix
+            .iter()
+            .any(|t| t.target == "aarch64-unknown-linux-gnu"));
     }
 
     #[test]
     fn ensure_filter_works() {
+        // Both targets have dylib=true
         let matrix = run(["--dylib", "1"]);
         assert!(matrix
             .iter()
             .any(|t| t.target == "aarch64-unknown-linux-gnu"));
-        assert!(matrix.iter().all(|t| t.target != "thumbv6m-none-eabi"));
-
-        let matrix = run(["--dylib", "0"]);
         assert!(matrix
             .iter()
-            .all(|t| t.target != "aarch64-unknown-linux-gnu"));
-        assert!(matrix.iter().any(|t| t.target == "thumbv6m-none-eabi"));
+            .any(|t| t.target == "x86_64-unknown-linux-gnu"));
+
+        // No targets have dylib=false
+        let matrix = run(["--dylib", "0"]);
+        assert!(matrix.is_empty());
     }
 
     #[test]
