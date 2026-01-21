@@ -1588,6 +1588,7 @@ mod tests {
     }
 
     #[test]
+    #[allow(clippy::single_element_loop)]
     fn test_tag_only_image() -> Result<()> {
         let target: Target = TargetTriple::X86_64UnknownLinuxGnu.into();
         let test = |map, expected_ver: &str, _expected_ver_zig: &str| -> Result<()> {
