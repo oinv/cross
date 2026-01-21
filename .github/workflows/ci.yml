@@ -266,6 +266,13 @@ jobs:
           ref: ${{ inputs.checkout-ref }}
       - uses: ./.github/actions/setup-rust
 
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: LLVM instrument coverage
         uses: ./.github/actions/cargo-llvm-cov
         with:
@@ -286,6 +293,13 @@ jobs:
         with:
           ref: ${{ inputs.checkout-ref }}
       - uses: ./.github/actions/setup-rust
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: LLVM instrument coverage
         uses: ./.github/actions/cargo-llvm-cov
@@ -335,6 +349,13 @@ jobs:
           ref: ${{ inputs.checkout-ref }}
       - uses: ./.github/actions/setup-rust
 
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: LLVM instrument coverage
         uses: ./.github/actions/cargo-llvm-cov
         with:
@@ -369,6 +390,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install podman --no-install-recommends --assume-yes
+
+      - name: Login to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | podman login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: LLVM instrument coverage
         id: cov
