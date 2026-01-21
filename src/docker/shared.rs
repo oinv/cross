@@ -36,7 +36,7 @@ pub const UBUNTU_BASE: &str = "ubuntu:22.04";
 pub const DEFAULT_IMAGE_VERSION: &str = if crate::commit_info().is_empty() {
     env!("CARGO_PKG_VERSION")
 } else {
-    "main"
+    "ubuntu2204"
 };
 
 #[derive(Debug)]

@@ -60,7 +60,7 @@ pub struct BuildDockerImage {
     /// Option `--cache-from` for docker, would only work if engine supports cache from type and no_cache is not set to true
     ///
     /// Additionally you can use {base_name} to replace with base name of the image
-    #[clap(long, default_value = "type=registry,ref={base_name}:main")]
+    #[clap(long, default_value = "type=registry,ref={base_name}:ubuntu2204")]
     pub cache_from: String,
     /// Continue building images even if an image fails to build.
     #[clap(long)]
